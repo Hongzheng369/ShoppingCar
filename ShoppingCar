@@ -1,0 +1,87 @@
+import java.util.Arrays;
+
+class ShoppingCar199{
+	Product199[] car;
+	int size;
+	public ShoppingCar199() {
+		car = new Product199[3];
+	}
+	public void add(Product199 product) {
+		if(size >= car.length) {
+			car = Arrays.copyOf(car, car.length *3/2);
+		}
+		car[size] = product;
+		size++;
+	}
+	public void delete(Product199 product) {
+		for(int i = 0;i<size;i++) {
+			if(car[i].equals(product)) {
+				Product199 tProduct = car[i];
+				car[i] = car[size -1];
+				size--;
+			}
+		}
+	}
+	public void cash() {
+		double sumPrice = 0 ;
+		for( int i = 0; i< car.length;i++) {
+			System.out.println(car[i].name + "\t" + car[i].price);
+			sumPrice += car[i].price;
+		}
+		System.out.println("\t\t\t total price:"+ sumPrice);
+	}
+
+}
+class Product199{
+	String name;
+	int price;
+	public Product199(String name, int price) {
+		super();
+		this.name = name;
+		this.price = price;
+	}
+	@Override
+	public String toString() {
+		return "Product199 [name=" + name + ", price=" + price + "]";
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + price;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Product199 other = (Product199) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (price != other.price)
+			return false;
+		return true;
+	}
+	
+	
+}
+
+public class day199 {
+	public static void main(String[] args) {
+		ShoppingCar199 car = new ShoppingCar199();
+		car.add(new Product199("Lenovo", 6000));
+		car.add(new Product199("Macpro", 16000));
+		car.add(new Product199("Dell", 7999));
+		
+		car.delete(new Product199("Macpro", 16000));
+		car.cash();
+	}
+}
